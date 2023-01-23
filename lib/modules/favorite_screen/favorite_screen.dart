@@ -33,123 +33,115 @@ class FavoriteScreen extends StatelessWidget {
     );
   } //end build()
 
-  Widget buildGridWidget(FavoritesModel favoritesModel, context) => Column(
-        children: [
-          GridView.count(
-            physics: const BouncingScrollPhysics(),
-            crossAxisCount: 2,
-            mainAxisSpacing: 1.0,
-            crossAxisSpacing: 1.0,
-            childAspectRatio: 1 / 1.1,
-            children: List.generate(
-              HomeCubit.getContext(context).favoritesModel!.data!.data!.length,
-              (index) => buildFavoriteItems(
-                  favoritesModel.data!.data![index], context),
-            ),
-          ),
-        ],
+  Widget buildGridWidget(FavoritesModel favoritesModel, context) =>
+      GridView.count(
+        physics: BouncingScrollPhysics(),
+        crossAxisCount: 2,
+        childAspectRatio: 1 / 1.2,
+        mainAxisSpacing: 1.0,
+        crossAxisSpacing: 1.0,
+        children: List.generate(
+          favoritesModel.data!.data!.length,
+          (index) =>
+              buildFavoriteItems(favoritesModel.data!.data![index], context),
+        ),
       );
 
-  Widget buildFavoriteItems(FavoritesDataModel favoritesModel, context) =>
-      Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: [
-                    Image(
-                      image: NetworkImage(
-                        '${favoritesModel.product!.image}',
-                      ),
-                      width: 200.0,
-                      height: 200.0,
+  Widget buildFavoriteItems(FavoritesDataModel favoritesDataModel, context) =>
+      Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Image(
+                    image: NetworkImage(
+                      favoritesDataModel.product!.image!,
                     ),
-                    if (favoritesModel.product!.discount != 0)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadiusDirectional.circular(
-                            5.0,
-                          ),
-                        ),
-                        child: const Text(
-                          'DISCOUNT',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.white,
-                          ),
+                    width: 130.0,
+                    height: 130.0,
+                  ),
+                  if (favoritesDataModel.product!.discount != 0)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadiusDirectional.circular(
+                          5.0,
                         ),
                       ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${favoritesModel.product!.name}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      child: const Text(
+                        'DISCOUNT',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                        ),
                       ),
-                      Row(
-                        children: [
+                    ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      favoritesDataModel.product!.name!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '${favoritesDataModel.product!.price}' '\$',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15.0,
+                        ),
+                        if (favoritesDataModel.product!.discount != 0)
                           Text(
-                            '${favoritesModel.product!.price}' '\$',
+                            '${favoritesDataModel.product!.oldPrice}' '\$',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: Colors.blueGrey,
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough,
                             ),
                           ),
-                          const SizedBox(
-                            width: 9.0,
-                          ),
-                          if (favoritesModel.product!.oldPrice != 0)
-                            Text(
-                              '${favoritesModel.product!.oldPrice}' '\$',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                            ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            IconButton(
-              onPressed: () {
-                HomeCubit.getContext(context)
-                    .changeFavorites(favoritesModel.product!.id!);
-              },
-              icon: HomeCubit.getContext(context)
-                      .favorites[favoritesModel.product!.id]!
-                  ? const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    )
-                  : const Icon(
-                      Icons.favorite_border_outlined,
-                      color: Colors.grey,
+                      ],
                     ),
-            ),
-          ],
-        ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () {
+              HomeCubit.getContext(context)
+                  .changeFavorites(favoritesDataModel.product!.id!);
+              print(favoritesDataModel.product!.id);
+            },
+            icon: HomeCubit.getContext(context)
+                    .favorites[favoritesDataModel.product!.id]!
+                ? const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.favorite_border_outlined,
+                    color: Colors.grey,
+                  ),
+          ),
+        ],
       );
 } //end class
