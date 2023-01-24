@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:qaf_store/models/favorite_model.dart';
 import 'package:qaf_store/models/home_data.dart';
+import 'package:qaf_store/modules/about_items_screen/about_items_screen.dart';
 import 'package:qaf_store/modules/home_screen/home_screen.dart';
 import 'package:qaf_store/modules/search_screen/search_screen.dart';
 import 'package:qaf_store/shared/components/components.dart';
@@ -69,103 +70,108 @@ class ShowAllScreen extends StatelessWidget {
     );
   } //end build()
 
-  Widget buildGridProduct(ProductsModel productsModel, context) => Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  Image(
-                    image: NetworkImage(productsModel.image),
-                    width: 130,
-                    height: 130.0,
-                  ),
-                  if (productsModel.discount != 0)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadiusDirectional.circular(
-                          5.0,
-                        ),
-                      ),
-                      child: const Text(
-                        'DISCOUNT',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+  Widget buildGridProduct(ProductsModel productsModel, context) => InkWell(
+        onTap: () {
+          navigateTo(context, AboutItemsScreen(productsModel));
+        },
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional.bottomStart,
                   children: [
-                    Text(
-                      productsModel.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Image(
+                      image: NetworkImage(productsModel.image),
+                      width: 130,
+                      height: 130.0,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          '${productsModel.price}' '\$',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.blueGrey,
+                    if (productsModel.discount != 0)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadiusDirectional.circular(
+                            5.0,
                           ),
                         ),
-                        const SizedBox(
-                          width: 7.0,
+                        child: const Text(
+                          'DISCOUNT',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: Colors.white,
+                          ),
                         ),
-                        if (productsModel.discount != 0)
+                      ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        productsModel.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        children: [
                           Text(
-                            '${productsModel.oldPrice}' '\$',
+                            '${productsModel.price}' '\$',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
+                              color: Colors.blueGrey,
                             ),
                           ),
-                        const Spacer(),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.add_shopping_cart,
-                            color: Colors.grey,
+                          const SizedBox(
+                            width: 7.0,
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          IconButton(
-            onPressed: () {
-              HomeCubit.getContext(context).changeFavorites(productsModel.id);
-            },
-            icon: HomeCubit.getContext(context).favorites[productsModel.id]!
-                ? const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  )
-                : const Icon(
-                    Icons.favorite_border_outlined,
-                    color: Colors.grey,
+                          if (productsModel.discount != 0)
+                            Text(
+                              '${productsModel.oldPrice}' '\$',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.add_shopping_cart,
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-          ),
-        ],
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () {
+                HomeCubit.getContext(context).changeFavorites(productsModel.id);
+              },
+              icon: HomeCubit.getContext(context).favorites[productsModel.id]!
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : const Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.grey,
+                    ),
+            ),
+          ],
+        ),
       );
 } //end class

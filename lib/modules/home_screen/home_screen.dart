@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qaf_store/models/category_model.dart';
 import 'package:qaf_store/models/home_data.dart';
+import 'package:qaf_store/modules/about_items_screen/about_items_screen.dart';
 import 'package:qaf_store/modules/show_all_categories/show_all_categories.dart';
 import 'package:qaf_store/modules/show_all_screen/show_all_screen.dart';
 import 'package:qaf_store/shared/components/components.dart';
@@ -139,7 +140,10 @@ class HomeScreen extends StatelessWidget {
                   crossAxisCount: 3,
                   children: List.generate(
                     3,
-                    (index) => buildGridItem(model.data.products[index]),
+                    (index) => buildGridItem(
+                      model.data.products[index],
+                      context,
+                    ),
                   ),
                 ),
               ),
@@ -175,7 +179,8 @@ class HomeScreen extends StatelessWidget {
                   crossAxisCount: 3,
                   children: List.generate(
                     3,
-                    (index) => buildGridItem(model.data.products[index]),
+                    (index) =>
+                        buildGridItem(model.data.products[index], context),
                   ),
                 ),
               ),
@@ -244,71 +249,77 @@ Widget listBuilder(HomeModel model) => Column(
       ],
     );
 
-Widget buildGridItem(ProductsModel productsModel) => Container(
-      width: double.infinity,
-      child: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: [
-                    Image(
-                      image: NetworkImage(
-                        productsModel.image,
-                      ),
-                      width: 100.0,
-                      height: double.infinity,
-                    ),
-                    if (productsModel.discount != 0)
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.circular(5.0),
-                          color: Colors.red,
+Widget buildGridItem(ProductsModel productsModel, context) => InkWell(
+      onTap: () {
+        navigateTo(context, AboutItemsScreen(productsModel));
+      },
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.bottomStart,
+                    children: [
+                      Image(
+                        image: NetworkImage(
+                          productsModel.image,
                         ),
-                        child: const Text(
-                          'DISCOUNT',
-                          style: TextStyle(fontSize: 10.0, color: Colors.white),
-                        ),
+                        width: 100.0,
+                        height: double.infinity,
                       ),
-                  ],
-                ),
-              ],
+                      if (productsModel.discount != 0)
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadiusDirectional.circular(5.0),
+                            color: Colors.red,
+                          ),
+                          child: const Text(
+                            'DISCOUNT',
+                            style:
+                                TextStyle(fontSize: 10.0, color: Colors.white),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Text(
-            productsModel.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Row(
-            children: [
-              Text(
-                '${productsModel.price}' '\$',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.blueGrey,
-                ),
-              ),
-              const SizedBox(
-                width: 6.0,
-              ),
-              if (productsModel.discount != 0)
+            Text(
+              productsModel.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Row(
+              children: [
                 Text(
-                  '${productsModel.oldPrice}' '\$',
+                  '${productsModel.price}' '\$',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    color: Colors.grey,
-                    decoration: TextDecoration.lineThrough,
+                    color: Colors.blueGrey,
                   ),
                 ),
-            ],
-          ),
-        ],
+                const SizedBox(
+                  width: 6.0,
+                ),
+                if (productsModel.discount != 0)
+                  Text(
+                    '${productsModel.oldPrice}' '\$',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
 
