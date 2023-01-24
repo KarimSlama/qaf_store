@@ -28,5 +28,5 @@ class SearchCubit extends Cubit<SearchStates> {
       print(error.toString());
       emit(SearchErrorState());
     });
-  }
-}
+  } //end searchItems()
+} //end class

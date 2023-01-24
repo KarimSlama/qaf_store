@@ -42,7 +42,7 @@ class ProductsModel {
   late String image;
   late String name;
   late String description;
-  late List<String> images = [];
+  late List<dynamic> images;
   late bool inFavorites;
   late bool inCart;
 
@@ -54,9 +54,7 @@ class ProductsModel {
     image = json['image'];
     name = json['name'];
     description = json['description'];
-    images.forEach((element) {
-      images.add(json[element]);
-    });
+    images = json['images'];
     inFavorites = json['in_favorites'];
     inCart = json['in_cart'];
   } //end named constructor()

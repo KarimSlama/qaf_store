@@ -47,8 +47,6 @@ class HomeCubit extends Cubit<HomeStates> {
     'Personal Profile'
   ];
 
-  // token = CacheHelper.getData(key: 'token');
-
   void changeBottomNav(int index) {
     currentIndex = index;
     emit(HomeBottomNavigationState());
@@ -58,14 +56,11 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeLoadingDataState());
     DioHelper.getData(url: HOME, token: token).then((value) {
       dataModel = HomeModel.fromJson(value.data);
-      // print(dataModel!.data.products[0].name.toString());
-      // print(dataModel!.status);
       dataModel!.data.products.forEach((element) {
         favorites.addAll({
           element.id: element.inFavorites,
         });
       });
-      // print(favorites.toString());
       emit(HomeGetDataSuccess());
     }).catchError((error) {
       print(error.toString());
