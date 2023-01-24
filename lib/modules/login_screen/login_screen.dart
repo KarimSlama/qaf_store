@@ -11,14 +11,15 @@ import 'package:qaf_store/shared/cubit/states/login_states.dart';
 import 'package:qaf_store/shared/data/cache_data/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
+    var formKey = GlobalKey<FormState>();
+
     return BlocConsumer<StoreLoginCubit, StoreLoginStates>(
       listener: (context, state) {
         if (state is StoreLoginStateSuccess) {

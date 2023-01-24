@@ -11,16 +11,16 @@ import 'package:qaf_store/shared/cubit/states/login_states.dart';
 import 'package:qaf_store/shared/data/cache_data/cache_helper.dart';
 
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({Key? key}) : super(key: key);
-
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
-  var passwordController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var nameController = TextEditingController();
+    var emailController = TextEditingController();
+    var phoneController = TextEditingController();
+    var passwordController = TextEditingController();
+    var formKey = GlobalKey<FormState>();
+
     return BlocConsumer<StoreLoginCubit, StoreLoginStates>(
       listener: (context, state) {
         if (state is StoreLoginStateSuccess) {
@@ -39,8 +39,7 @@ class SignUpScreen extends StatelessWidget {
               value: state.loginData.data!.token,
             ).then((value) {
               token = state.loginData.data!.token;
-              print('sign up data successfully $value');
-              navigateAndFinish(context, LoginScreen());
+              navigateAndFinish(context, const LoginScreen());
             });
           } else {
             Fluttertoast.showToast(
