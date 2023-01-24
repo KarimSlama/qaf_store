@@ -11,9 +11,7 @@ import 'package:qaf_store/shared/cubit/cubit/home_cubit.dart';
 import 'package:qaf_store/shared/cubit/states/home_state.dart';
 
 class ShowAllScreen extends StatelessWidget {
-  ShowAllScreen({Key? key}) : super(key: key);
-
-  var searchController = TextEditingController();
+  const ShowAllScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,7 @@ class ShowAllScreen extends StatelessWidget {
             title: const Text(
               'All Products',
               style: TextStyle(
-                  color: Colors.blueGrey,
+                  color: Colors.black,
                   fontFamily: 'Gabriola',
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold),
@@ -57,7 +55,7 @@ class ShowAllScreen extends StatelessWidget {
           body: GridView.count(
             physics: const BouncingScrollPhysics(),
             crossAxisCount: 2,
-            childAspectRatio: 1 / 1.2,
+            childAspectRatio: 1 / 1.3,
             mainAxisSpacing: 1.0,
             crossAxisSpacing: 1.0,
             children: List.generate(
@@ -127,7 +125,7 @@ class ShowAllScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          width: 15.0,
+                          width: 7.0,
                         ),
                         if (productsModel.discount != 0)
                           Text(
@@ -139,6 +137,14 @@ class ShowAllScreen extends StatelessWidget {
                               decoration: TextDecoration.lineThrough,
                             ),
                           ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.add_shopping_cart,
+                            color: Colors.grey,
+                          ),
+                        )
                       ],
                     ),
                   ],
