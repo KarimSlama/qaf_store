@@ -32,11 +32,11 @@ class HomeCubit extends Cubit<HomeStates> {
   Map<int, bool> favorites = {};
 
   List<Widget> screens = [
-    HomeScreen(),
+    const HomeScreen(),
     ProductsScreen(),
-    CartScreen(),
-    FavoriteScreen(),
-    ProfileScreen(),
+    const CartScreen(),
+    const FavoriteScreen(),
+    const ProfileScreen(),
   ];
 
   List<String> titles = [

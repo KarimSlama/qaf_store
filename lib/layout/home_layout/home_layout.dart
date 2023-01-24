@@ -41,37 +41,6 @@ class HomeLayout extends StatelessWidget {
             ],
           ),
           body: categoryCubit.screens[categoryCubit.currentIndex],
-          // bottomNavigationBar: BottomNavigationBar(
-          //   onTap: (index) {
-          //     categoryCubit.changeBottomNav(index);
-          //   },
-          //   currentIndex: categoryCubit.currentIndex,
-          //   items: const [
-          //     BottomNavigationBarItem(
-          //         icon: Icon(
-          //           Icons.home,
-          //         ),
-          //         label: 'Home'),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(
-          //         Icons.category_outlined,
-          //       ),
-          //       label: 'Products',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(
-          //         Icons.favorite_border,
-          //       ),
-          //       label: 'Favorite',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(
-          //         Icons.person_outline,
-          //       ),
-          //       label: 'Profile',
-          //     ),
-          //   ],
-          // ),
           bottomNavigationBar: Container(
             color: Colors.black,
             child: Padding(
@@ -82,7 +51,7 @@ class HomeLayout extends StatelessWidget {
                   color: Colors.white,
                   activeColor: Colors.white,
                   tabBackgroundColor: Colors.grey.shade800,
-                  padding: EdgeInsets.all(14.0),
+                  padding: const EdgeInsets.all(14.0),
                   gap: 8.0,
                   onTabChange: (index) {
                     categoryCubit.changeBottomNav(index);

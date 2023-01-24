@@ -50,12 +50,12 @@ class ShowAllScreen extends StatelessWidget {
                   width: 30.0,
                   height: 30.0,
                 ),
-                padding: EdgeInsetsDirectional.only(end: 15.0),
+                padding: const EdgeInsetsDirectional.only(end: 15.0),
               ),
             ],
           ),
           body: GridView.count(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             crossAxisCount: 2,
             childAspectRatio: 1 / 1.2,
             mainAxisSpacing: 1.0,
@@ -126,7 +126,7 @@ class ShowAllScreen extends StatelessWidget {
                             color: Colors.blueGrey,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15.0,
                         ),
                         if (productsModel.discount != 0)
@@ -149,7 +149,6 @@ class ShowAllScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               HomeCubit.getContext(context).changeFavorites(productsModel.id);
-              print(productsModel.id);
             },
             icon: HomeCubit.getContext(context).favorites[productsModel.id]!
                 ? const Icon(

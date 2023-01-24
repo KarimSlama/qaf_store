@@ -30,7 +30,7 @@ class ProductsScreen extends StatelessWidget {
       builder: (context, state) {
         var homeCubit = HomeCubit.getContext(context);
         return GridView.count(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           crossAxisCount: 2,
           childAspectRatio: 1 / 1.2,
           mainAxisSpacing: 1.0,

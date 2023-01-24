@@ -35,7 +35,7 @@ class FavoriteScreen extends StatelessWidget {
 
   Widget buildGridWidget(FavoritesModel favoritesModel, context) =>
       GridView.count(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: 1 / 1.2,
         mainAxisSpacing: 1.0,
