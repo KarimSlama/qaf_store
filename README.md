@@ -15,5 +15,5 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 ![qaf_store](https://user-images.githubusercontent.com/96607967/214528954-6a206b96-4e18-4e20-94ff-960ca9029a48.jpg)
-to download apk file for android check out this link:
+to know how the app work check out this link:
 https://vimeo.com/manage/videos/813362735
